@@ -5,7 +5,7 @@ import torch.nn as nn
 from tqdm import tqdm
 import numpy as np
 
-def train_epoch(model, data_loader, loss_fn, optimizer, device, scheduler, n_examples, scaler):
+def train_epoch(model, data_loader, loss_fn, optimizer, device, scheduler, scaler):
     model = model.train()
     losses = []
     
