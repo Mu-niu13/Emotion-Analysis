@@ -16,6 +16,7 @@ class EmotionClassifier(nn.Module):
             input_ids=input_ids,
             attention_mask=attention_mask
         )
-        pooled_output = outputs[0][:, 0, :]  # For models like DistilBERT
+        # For DistilBERT, use outputs[0][:, 0, :] as the pooled output
+        pooled_output = outputs[0][:, 0, :]
         output = self.drop(pooled_output)
         return self.out(output)
