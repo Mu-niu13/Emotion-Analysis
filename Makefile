@@ -1,7 +1,7 @@
 .PHONY: all install train evaluate clean
 
 # Define variables
-PYTHON=python3.11
+PYTHON=python
 VENV=NLP
 ACTIVATE=$(VENV)/bin/activate
 PIP=$(VENV)/bin/pip
