@@ -3,6 +3,7 @@
 import torch
 import torch.nn as nn
 from tqdm import tqdm
+import numpy as np
 
 def eval_model(model, data_loader, loss_fn, device, n_examples, n_mc_samples=10):
     model = model.eval()
