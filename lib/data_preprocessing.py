@@ -1,5 +1,3 @@
-# lib/data_preprocessing.py
-
 import pandas as pd
 import numpy as np
 import torch
@@ -63,5 +61,5 @@ def create_data_loader(df, tokenizer, max_len, batch_size, label_columns):
         ds,
         batch_size=batch_size,
         shuffle=True,
-        num_workers=0  # Set to 0 for limited resources
+        num_workers=4
     )
