@@ -1,4 +1,4 @@
-id,text,example_very_unclear,neutral,positive_recognition,anger,sadness,anxiety,regret,happiness,discomfort,affection,curiosity,surprise
+id,text,example_very_unclear,neutral,positive recognition,anger,sadness,anxiety,regret,happiness,discomfort,affection,curiosity,surprise
 e2lvzyq,This is the best day I've had in ages.,FALSE,0,0,0,0,0,0,1,0,0,0,0
 ehprqci,This is an ordinary and plain example.,FALSE,1,0,0,0,0,0,0,0,0,0,0
 e3asfjq,"Wow, this changes everything so suddenly.",FALSE,0,0,0,0,0,0,0,0,0,0,1
