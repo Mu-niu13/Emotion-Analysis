@@ -2,24 +2,23 @@ import pandas as pd
 import numpy as np
 import torch
 from torch.utils.data import Dataset
-from transformers import BertTokenizer
+from transformers import AutoTokenizer
 
 class EmotionDataset(Dataset):
     def __init__(self, dataframe, tokenizer, max_len, label_columns):
         self.tokenizer = tokenizer
-        self.data = dataframe
-        self.text = dataframe['text']
+        self.text = dataframe['text'].tolist()
         self.labels = dataframe[label_columns].values
         self.max_len = max_len
+        self.label_columns = label_columns
         
     def __len__(self):
         return len(self.text)
     
     def __getitem__(self, index):
-        text = str(self.text.iloc[index])
+        text = str(self.text[index])
         inputs = self.tokenizer.encode_plus(
             text,
-            None,
             add_special_tokens=True,
             max_length=self.max_len,
             padding='max_length',
@@ -30,7 +29,11 @@ class EmotionDataset(Dataset):
         
         input_ids = inputs['input_ids'].squeeze()
         attention_mask = inputs['attention_mask'].squeeze()
-        labels = torch.tensor(self.labels[index], dtype=torch.float)
+        
+        label_vector = self.labels[index]
+        label_indices = np.where(label_vector == 1)[0]
+        label_index = label_indices[0]
+        labels = torch.tensor(label_index, dtype=torch.long)
         
         return {
             'input_ids': input_ids,
@@ -61,5 +64,5 @@ def create_data_loader(df, tokenizer, max_len, batch_size, label_columns):
         ds,
         batch_size=batch_size,
         shuffle=True,
-        num_workers=4
+        num_workers=2
     )
