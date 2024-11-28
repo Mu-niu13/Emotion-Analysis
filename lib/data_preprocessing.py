@@ -53,16 +53,8 @@ def get_label_columns(df):
     label_columns.remove('example_very_unclear')
     return label_columns
 
-def custom_collate_fn(batch):
-    batch_dict = {}
-    for key in batch[0]:
-        if key == 'text':
-            batch_dict[key] = [d[key] for d in batch]
-        else:
-            batch_dict[key] = torch.stack([d[key] for d in batch], dim=0)
-    return batch_dict
 
-def create_data_loader(df, tokenizer, max_len, batch_size, label_columns):
+def create_data_loader(df, tokenizer, max_len, batch_size, label_columns, shuff):
     ds = EmotionDataset(
         dataframe=df,
         tokenizer=tokenizer,
@@ -73,7 +65,6 @@ def create_data_loader(df, tokenizer, max_len, batch_size, label_columns):
     return torch.utils.data.DataLoader(
         ds,
         batch_size=batch_size,
-        shuffle=True,
-        num_workers=4,
-        collate_fn=custom_collate_fn
+        shuffle=shuff,
+        num_workers=4
     )
